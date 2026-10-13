@@ -4,11 +4,6 @@ All notable changes to the Brief Bridge kit are recorded here. This file follows
 Keep a Changelog and Semantic Versioning. The kit's shipped version also appears
 on the `**Version:**` line in `installer.md` and in `VERSION`.
 
-Entries before the public release refer to an internal kit standard
-("KIT-STANDARD", with section numbers) and to sibling kits in a private product
-line. Neither ships in this repository. The rules from them that matter here are
-restated in `README.md`.
-
 ## [Unreleased]
 
 ### Changed
@@ -19,19 +14,18 @@ restated in `README.md`.
 
 ## [1.0.2] - 2026-08-17
 
-Cross-family review (Opus + Terra, kit-hardening pass) found six confirmed
+A two-model review (kit-hardening pass) found six confirmed
 defects in the 1.0.1 hardening. All six are fixed here.
 
 ### Added
 
-- **`examples/` — the worked-example layer** the kit standard requires and this
-  kit never had. Three complete runs: `01-desk-to-phone-complete.md` (the
+- **`examples/` — a worked-example layer** this kit never had. Three complete runs: `01-desk-to-phone-complete.md` (the
   everyday trip, input through emitted brief through what the receiving AI did
   with nothing installed), `02-refused-not-enough-state.md` (the EMIT refusal
   firing — no brief produced, nothing invented), and
   `03-multi-hop-and-malformed.md` (a re-emit that does not nest a prior brief,
   and RESUME stopping on a truncated one). The work in them is invented and
-  labelled so. Per §4.10 they explicitly do NOT satisfy the buyer's-own-data
+  labelled so. They explicitly do NOT satisfy the buyer's-own-data
   first-run box, and `examples/README.md` says that in those words.
 - **Section 2.5 of `installer.md` — chat-app upgrades.** 1.0.1's hardened
   upgrade procedure lived entirely in the 3A filesystem branch, so a 3B/3C
@@ -84,19 +78,19 @@ defects in the 1.0.1 hardening. All six are fixed here.
 
 ### Verified
 
-Run 2026-08-17 on plain Node 24 (`/opt/homebrew/opt/node@24/bin/node`, v24.19.0):
+Run 2026-08-17 on plain Node 24 (v24.19.0):
 
 - `node --test tests/brief-bridge.test.mjs` — 10 tests, 10 pass, 0 fail.
 - `node tests/verify-install.mjs` — PASS, exit 0.
 
-Red-first proof, run against a scratch copy with each defect injected (the
-kit-standard red-before-green rule; every one of these went red, then green when
+Red-first proof, run against a scratch copy with each defect injected (every
+one of these went red, then green when
 the defect was removed):
 
 - a `.mjs` planted under `skills/brief/` → `unexpected buyer runtime script`,
   exit 1. This is the exact hole the old scan could not see.
 - `skills/brief/SKILL.md` removed → both failures reported, exit 1, no uncaught
-  exception. This is the Terra finding.
+  exception. This was one of the review findings.
 - `examples/` removed → reported missing, exit 1.
 - `this is v<new>` replaced with `this is v1.0` → the version-literal test fails
   and names the stale literal. Caught a real bug in the test's own first draft,
@@ -142,34 +136,32 @@ the defect was removed):
 ## [1.0.0] - 2026-08-13
 
 First recorded version. The kit's content already existed and shipped; what it
-lacked was the version record every other kit in the line carries. Establishing
-the baseline is the change — no kit content was rewritten to create it.
+lacked was a version record. Establishing the baseline is the change — no kit
+content was rewritten to create it.
 
 ### Added
 
-- **`VERSION` file** at `1.0.0`. Brief Bridge was the only kit in the line
-  without one (verified 2026-08-13: 11 of 12 kits had `VERSION`, this one did
-  not), which left the zip-build and the site with no version to state.
-- **This changelog.** Same gap, same reason: every peer kit had one.
-- **Line-wide portability section** in `README.md`, per `KIT-STANDARD.md` §9 —
-  the per-harness install table (Claude app, Codex, claude.ai web), the T1/T2/T3
-  capability ladder, and what is lost at T3.
+- **`VERSION` file** at `1.0.0`, so the kit has one place that states its
+  version.
+- **This changelog.**
+- **Portability notes** in `README.md`: a "What changes by host" section
+  (coding agent, shell without subagents, chat only, and what is lost in chat
+  only) and a per-harness install table (Claude app, Codex, claude.ai web).
 - **`claude.ai web` recorded as UNVERIFIED.** Nobody has run a zip upload
   through the web UI. The row stays unverified until a human does it; it is not
   upgraded by inference.
 
 ### Changed
 
-- **`installer.md` version line** from `1.0` to `1.0.0`, matching the
-  three-part semver every other kit's installer uses.
+- **`installer.md` version line** from `1.0` to `1.0.0`, matching three-part
+  semver.
 - **Concurrency language** now reads "subagents running workflows" rather than
-  naming a vendor CLI, per `KIT-STANDARD.md` §9.4. Brief Bridge is the kit whose
+  naming a vendor CLI. Brief Bridge is a kit whose
   entire premise is cross-vendor continuity, so a hard-coded vendor binary in
   its own copy was the sharpest version of that contradiction.
 
 ### Notes
 
-- The buyer path has no scripts, so the §9.3 T2 dependency floor is satisfied
-  trivially: there is no Bun, jq, Python, or Node dependency for the buyer. The
-  product is a skill and a format, which is why it degrades to T3 more
-  gracefully than any other kit in the line.
+- The buyer path has no scripts, so there is no Bun, jq, Python, or Node
+  dependency for the buyer. The product is a skill and a format, which is why it
+  still works in a chat-only host.

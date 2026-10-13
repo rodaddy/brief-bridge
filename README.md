@@ -70,8 +70,8 @@ invented and labelled so.
 **None for the user.** Installing and using the skill runs no scripts and needs
 no Node, Python, Bun, jq, shell, or package manager.
 
-Maintainers can run the checks under `tests/` with plain Node (floor
-**22.6.0+**), no `npm install`:
+Maintainers can run the checks under `tests/` with plain Node 22 or later,
+no `npm install`:
 
 ```text
 node --test tests/brief-bridge.test.mjs
@@ -98,8 +98,8 @@ contents and its zip layout.
 
 | Harness | Status |
 | --- | --- |
-| Claude app (zip upload) | verified 2026-08-12 |
-| Codex (folder) | verified 2026-08-12 |
+| Claude app (zip upload) | not yet run for this kit (a 2026-08-12 check covered this install path on another kit, not this one) |
+| Codex (folder) | not yet run for this kit (a 2026-08-12 check covered this install path on another kit, not this one) |
 | claude.ai web | unverified, never tested |
 
 ## What it does not do

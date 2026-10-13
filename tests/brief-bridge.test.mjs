@@ -207,7 +207,7 @@ test("worked examples exist, are labelled invented, and are excluded from instal
     "the refusal example must not contain an emitted brief after the refusal",
   );
 
-  // §4.10: shipped examples may never stand in for the buyer's own first run.
+  // Shipped examples may never stand in for the buyer's own first run.
   assert.match(examplesReadme, /not your install test/i);
   assert.match(examplesReadme, /invented|made up/i);
   assert.match(installer, /not the install session and not shipped demo text/i);
@@ -225,7 +225,7 @@ test("the maintainer-only carve-out is stated where the copy instructions live",
   assert.match(installer, /`tests\/`/);
   // The 3B zip listing must forbid script extensions outright.
   assert.match(installer, /no file whose name ends in `\.mjs`/i);
-  // README states the maintainer Node floor (22.6.0+), not a wrong one.
-  assert.match(readme, /22\.6\.0\+/);
+  // README states the maintainer Node floor (Node 22 or later), not a wrong one.
+  assert.match(readme, /Node 22 or later/);
   assert.doesNotMatch(readme, /Node 1[0-9]\b/);
 });
