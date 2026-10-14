@@ -304,7 +304,7 @@ doesn't — but do not push it.)
 > this and I'll leave the name off.)"
 
 Then create `branding/brand.md` **inside the installed skill folder** (next to
-`SKILL.md`, so the skill reads it skill-relative per §4.5 of the kit standard;
+`SKILL.md`, so the skill finds it by a path relative to its own folder;
 skip the folder entirely on 3D plain chat and just keep the name/voice in the
 conversation). It holds:
 
